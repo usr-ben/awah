@@ -3,12 +3,8 @@ automated web application hacker
 
 THIS TOOL WILL FIND THE INJECTION POINT AUTOMATICALLY IN THE SITE
 
-
 FOUND URL CAN BE USED FOR SQL INJECTION
-
 
 STILL IN DEVELOPMENT STAGE
 
-requirements :
 
-Mechanize module
