@@ -43,14 +43,9 @@ def finder(url):
             print a
 
 def injFinder(url):
-    import urllib
-    import mechanize
+    import urllib,urllib2
     from bs4 import BeautifulSoup
     import re
-
-    br =mechanize.Browser()
-    br.set_handle_robots(False)
-    br.addheaders=[{'User-agent','chrome'}]
 
     url=url.replace("www.","")
     dork="inurl:php?id= site:"+url
@@ -58,7 +53,7 @@ def injFinder(url):
     encode=urllib.quote(dork)
     url="http://uk.ask.com/web?q="+ encode
 
-    raw = br.open(url).read()
+    raw = urllib2.urlopen(url).read()
     soup= BeautifulSoup(raw)
     divs=soup.findAll('div')
 
@@ -75,14 +70,28 @@ def injFinder(url):
         print "sorry no injection point found in this site"
     else:
         print c
+        site= c+"'"
+        a=urllib2.urlopen(site).read()
+        errors = ["You have an error in your SQL syntax","Execution of a query to the database failed", "Unknown column", "404 Error Message", "mysql_num_rows()",
+               "mysql_fetch_array()", "Error Occurred While Processing Request","Server Error in '/' Application",
+               "Microsoft OLE DB Provider for ODBC Drivers error", "error in your SQL syntax", "include()",
+               "Invalid Querystring", "OLE DB Provider for ODBC","Error: You have an error in your SQL syntax", "VBScript Runtime", "ADODB.Field", "BOF or EOF",
+               "ADODB.Command","JET Database","mysql_fetch_row()", "Syntax error", "mysql_fetch_assoc()", "mysql_fetch_object()",
+               "mysql_numrows()", "GetArray()", "FetchRow()","input string was not in a correct format",
+               "MSSQL_Uqm: Unclosed quotation mark","JDBC_CFM2 : SQLServer JDBC Driver", "JDBC_CFM': Error Executing Database Query", "Oracle: ORA-01756","Division by zero",
+               "Failed Query"]
+        d=len(errors)
+        if a:
+            for i in range(d):
+                c=errors[i]
+                b=re.search(c,a)
+                if b:
+                    break
 
-
-
-
-   
-
-
+            print "site is vulnerable"
     
+        else:
+            print "site is not vulnerable"
 
 if __name__=='__main__':
     Main()
