@@ -8,3 +8,7 @@ FOUND URL CAN BE USED FOR SQL INJECTION
 
 
 STILL IN DEVELOPMENT STAGE
+
+requirements :
+
+Mechanize module
